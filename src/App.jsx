@@ -1,39 +1,26 @@
-import { useEffect, useState } from 'react';
-import './App.css'
-import data from './assets/data'
-import ProfileCard from './Components/ProfileCard'
-
+import React from "react";
+import "./App.css";
+import data from "./assets/data";
+import ProfileCard from "./Components/ProfileCard";
 
 function App() {
-  const [info, setInfo] = useState([]);
-  const [contributor, setContributor] = useState("Ashu-kumar40")
-
-  useEffect(() => {
-    const getData = () => {
-      fetch(`https://api.github.com/users/${contributor}`)
-        .then((res) => res.json())
-        .then((result) => setInfo(result));
-    };
-    getData();
-    console.log(info)
-  }, [contributor])
-
   return (
-    <>
-    <h1>First Contribution</h1>
-      <div className="app-container">
-        {
-          data.data?.map((user) => (
-            <>
-              {setContributor(user.username)}
-              <ProfileCard username={info.login} name={info.name} imgURL={info.avatar_url} />
-            </>
-
-          ))
-        }
+    <div className="app-container">
+      <div className="header">
+        <img className="mlsa-logo" src='./src/assets/mlsa-logo.png' alt="logo" />
+        <div>
+        <h1 className="headline">My First Contribution</h1>
+        <p className="subheading">By Ashu Kumar</p>
+        </div>
+        <img className="mlsa-logo avatar-logo" src='https://avatars.githubusercontent.com/u/95637428?v=4' alt="logo" />
       </div>
-    </>
-  )
+      <div className="card-container">
+        {data.data?.map((user) => (
+          <ProfileCard username={user.username} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
